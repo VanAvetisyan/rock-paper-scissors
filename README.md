@@ -4,12 +4,15 @@ RockPaperScissorsServer is used as a REST endpoint for RockPaperScissorsClient
 
 ## Build Source
 
-To compile the code (Java 8):
+To compile and test the code (Java 8):
 
 ```terminal
 mvn clean install
 ```
-
+or to run it without tests:
+```terminal
+mvn clean install -DskipTests
+```
 ## Start
 
 To start the application on local environment:

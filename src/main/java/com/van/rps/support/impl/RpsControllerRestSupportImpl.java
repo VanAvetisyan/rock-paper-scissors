@@ -4,23 +4,24 @@ import com.van.rps.model.PickElements;
 import com.van.rps.model.UserPickRequest;
 import com.van.rps.model.UserPickResponse;
 import com.van.rps.support.RpsControllerRestSupport;
+import com.van.rps.support.utils.RandomPicker;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Random;
 
 @Service
 public class RpsControllerRestSupportImpl implements RpsControllerRestSupport {
 
-    private static final Random RANDOM = new Random();
+    @Autowired
+    RandomPicker randomPicker;
 
     @Override
     public UserPickResponse calculatePicksAndWinner(UserPickRequest userPickRequest) {
         PickElements userPickedElement = PickElements.valueOf(userPickRequest.getUserPick().toUpperCase());
-        PickElements enemyPickedElement = calculateRandomComputerPick();
+        PickElements enemyPickedElement = randomPicker.calculateRandomComputerPick();
 
         int winner = calculateWinner(userPickedElement, enemyPickedElement);
 
@@ -32,11 +33,6 @@ public class RpsControllerRestSupportImpl implements RpsControllerRestSupport {
                 .enemyWins(winner==2).build();
         addMetrics(userPickResponse);
         return userPickResponse;
-    }
-
-    private PickElements calculateRandomComputerPick() {
-        int randomIndex = RANDOM.nextInt(3);
-        return PickElements.values()[randomIndex];
     }
 
     private int calculateWinner(PickElements userPick, PickElements randomPick) {
