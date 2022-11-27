@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class UserPickResponse {
-    private String userName;
+    private String userId;
     private String userPick;
     private String enemyPick;
     private Boolean userWins;

@@ -20,7 +20,7 @@ public class RpsControllerApiRestImpl {
 
     @PostMapping("/api/rest/rps/userpick")
     public ResponseEntity<UserPickResponse> userPickedObjectWinnerCalculator(@RequestBody UserPickRequest request) {
-        logger.info("User {} asked for response with {} pick", request.getUserName(), request.getUserPick());
+        logger.info("User {} asked for response with {} pick", request.getUserId(), request.getUserPick());
         UserPickResponse userPickResponse = rpsControllerRestSupport.calculatePicksAndWinner(request);
         logger.info("Returning data");
         return new ResponseEntity<>(userPickResponse, HttpStatus.OK);

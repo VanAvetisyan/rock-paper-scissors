@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class UserPickRequest {
-    private String userName;
+    private String userId;
     private String userPick;
 }
