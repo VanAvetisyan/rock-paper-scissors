@@ -19,3 +19,12 @@ mvn spring-boot:run
 ```
 
 Then your server should be running in `http://localhost:8080/`
+
+## Metrics
+
+To be able to access the metrics (micrometer+prometheus) access:
+
+```bash 
+http://localhost:8080/actuator/prometheus
+```
+Custom added metrics are the ones with structure: RPS_...

@@ -27,7 +27,7 @@ public class RpsControllerRestSupportImpl implements RpsControllerRestSupport {
         UserPickResponse userPickResponse = UserPickResponse.builder()
                 .userPick(userPickedElement.getValue())
                 .enemyPick(enemyPickedElement.getValue())
-                .userName(userPickRequest.getUserName())
+                .userId(userPickRequest.getUserId())
                 .userWins(winner==1)
                 .enemyWins(winner==2).build();
         addMetrics(userPickResponse);
@@ -51,16 +51,16 @@ public class RpsControllerRestSupportImpl implements RpsControllerRestSupport {
 
     private void addMetrics(UserPickResponse userPickResponse) {
         Counter userPickCounter = Metrics.counter("RPS.User.Pick.Counter",
-                Tags.of(Tag.of("user", userPickResponse.getUserName()),
+                Tags.of(Tag.of("user", userPickResponse.getUserId()),
                         Tag.of("pick", userPickResponse.getUserPick())));
         Counter enemyPickCounter = Metrics.counter("RPS.Enemy.Pick.Counter",
                 Tags.of(Tag.of("pick", userPickResponse.getEnemyPick())));
         Counter userWinsCounter = Metrics.counter("RPS.User.Wins.Counter",
-                Tags.of(Tag.of("user", userPickResponse.getUserName())));
+                Tags.of(Tag.of("user", userPickResponse.getUserId())));
         Counter userLosesCounter = Metrics.counter("RPS.User.Loses.Counter",
-                Tags.of(Tag.of("user", userPickResponse.getUserName())));
+                Tags.of(Tag.of("user", userPickResponse.getUserId())));
         Counter userTiesCounter = Metrics.counter("RPS.User.Ties.Counter",
-                Tags.of(Tag.of("user", userPickResponse.getUserName())));
+                Tags.of(Tag.of("user", userPickResponse.getUserId())));
 
         userPickCounter.increment();
         enemyPickCounter.increment();
